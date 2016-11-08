@@ -1,0 +1,7 @@
+﻿Compiling 'Sketch2' for 'Arduino/Genuino Uno'
+
+Program size: 2,940 bytes (used 9% of a 32,256 byte maximum) (1.16 secs)
+Minimum Memory Usage: 116 bytes (6% of a 2048 byte maximum)
+ 
+Uploading 'Sketch2' to 'Arduino/Genuino Uno' using 'COM4'
+	The upload process has finished.
