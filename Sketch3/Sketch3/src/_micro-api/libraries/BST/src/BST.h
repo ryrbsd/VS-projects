@@ -9,26 +9,38 @@
 	#include "WProgram.h"
 #endif
 
+//generic data type <Key, Value>
 template <typename Key, typename Value> class BST
 {
 public:
+    /*============Node(BST)================
+    The tree node has 2 pointer 2 variables
+    */
 	class Node
 	{
 		public:
-			Node *left;
-			Node *right;
-			Key key;
-			Value value;
-		
+			Node *left; // left child of the node
+			Node *right; // right child of the node
+			Key key; // the key of the node
+			Value value; // the value of the code storing
+			
+			/*==========Node============
+			The constructor of Node(BST)
+			Input: Key key, Value value
+			return: Node
+			*/
 			Node(Key key, Value value)
 			{
 				left = NULL;
 				right = NULL;
 				this->key = key;
-				//Serial.println("node");
-				//Serial.println(this->key);
 				this->value = value;
 			}
+			
+			/*==========~Node============
+			The disconstructor of Node(BST)
+			Set all thing to none
+			*/
 			~Node()
 			{
 				left = NULL;
@@ -37,13 +49,21 @@ public:
 				value = NULL;
 			}
 	};
-	int size;
-	Node *head;
+	int size; // size of BST
+	Node *head; // the head node of BST
+	
+	/*==========BST============
+	The constructor of BST
+	*/
 	BST()
 	{
 		size = 0;
 		head = NULL;
 	}
+	
+	/*==========~BST============
+	The disstructor of BST
+	*/
 	~BST()
 	{
 		if (head != NULL)
@@ -51,7 +71,12 @@ public:
 			deleteTree(head);
 		}
 	}
-
+	
+	/*==============deleteTree============
+	This fucntion is to delete whole tree starting from the node
+	Input: Node *node
+	return: void
+	*/
 	void deleteTree(Node *node)
 	{
 		if (node->left != NULL)
@@ -64,24 +89,42 @@ public:
 		return;
 	}
 
+	/*===========insert=============
+	This function insert new node in to BST by key
+	Input: Key key, Value value
+	return void
+	*/
 	void insert(Key key, Value value)
 	{
-		//Serial.println(key);
 		head = insert(key, value, head);
 		size = countsize(head);
 	}
 
+	/*===========get=============
+	This function get value from bst by key
+	Input: Key key
+	return Value value
+	*/
 	Value get(Key key)
 	{
 		return find(key, head);
 	}
 
+	/*===========deleteByKey=============
+	This function delete value from bst by key
+	Input: Key key
+	return void
+	*/
 	void deleteByKey(Key key)
 	{
 		deleteNode(head, key);
 		size = countsize(head);
 	}
 
+	/*===========findMinValue=============
+	This function find minimum key's value from bst 
+	return Value
+	*/
 	Value findMinValue()
 	{
 		Node *min = findMin(head);
@@ -91,13 +134,23 @@ public:
 			return NULL;
 	}
 
+	/*===========deleteMin=============
+	This function delete minimum key's value from bst 
+	return void
+	*/
 	void deleteMin()
 	{
 		head = deleteMin(head);
 		size = countsize(head);
 	}
-
-	private:
+	
+	//private functions
+	private: 
+		/*===========find=============
+		This function find value from key in bst start from head
+		Input: Key key, Node *head
+		return Value value
+		*/
 		Value find(Key key, Node *head)
 		{
 			if (head == NULL || head->key == NULL)
@@ -117,6 +170,12 @@ public:
 				return head->value;
 			}
 		}
+		
+		/*===========insert=============
+		This function insert value by key in bst start from head
+		Input: Key key, Node *head, Value value
+		return Node *current
+		*/
 		Node *insert(Key key, Value value, Node *current)
 		{
 			if (current == NULL)
@@ -139,12 +198,24 @@ public:
 			return current;
 		}
 
+		/*===========countsize=============
+		This function count number of Nodes of bst starting from head
+		Input:  Node *head
+		return int size
+		*/
 		int countsize(Node *head)
 		{
 			if (head == NULL)
 				return 0;
 			return countsize(head->left) + countsize(head->right) + 1;
 		}
+		
+		/*===========deleteNode=============
+		This function delete value by key in bst start from head and return the 
+		new tree after delete
+		Input: Key key, Node *head
+		return Node *head(New tree)
+		*/
 		Node deleteNode(Node *head, Key key)
 		{
 			if (head == NULL) 
@@ -167,14 +238,26 @@ public:
 			}
 			return head;
 		}
-
-		Node *findMin(Node *head)
+		
+		/*===========findMin=============
+		This function find the value which key is minimum in bst start from head and return the 
+		value
+		Input: Node *head
+		return Value *value(New tree)
+		*/
+		Value *findMin(Node *head)
 		{
 			if (head->left != NULL)
 				return findMin(head->left);
 			return head->value;
 		}
 
+		/*===========deleteMin=============
+		This function delete value by min key in bst start from head and return the 
+		new tree after delete
+		Input: Node *head
+		return Node *head(New tree)
+		*/
 		Node *deleteMin(Node *head)
 		{
 			if (head->left == NULL)

@@ -5,7 +5,7 @@
 #include "Map.h"
 
 const int defaultArraySize = 20;
-
+// Map stores key and value pairs in two arrays.
 template <typename Key, typename Value>
 Map<Key, Value>::Map()
 {
@@ -21,6 +21,9 @@ Map<Key, Value>::~Map()
 	delete[] values;
 }
 
+/*==========Map==============
+Constructor of Map
+*/
 template <typename Key, typename Value>
 void Map< Key, Value>::add(Key key, Value value)
 {
@@ -39,6 +42,10 @@ void Map< Key, Value>::add(Key key, Value value)
 
 }
 
+/*==========find==============
+Get index of key and then get value by index
+Input: key
+*/
 template <typename Key, typename Value>
 Value Map< Key, Value>::find(Key key)
 {
@@ -51,6 +58,9 @@ Value Map< Key, Value>::find(Key key)
 	return 0;
 }
 
+/*==========resize==============
+If one array is full then resize the array
+*/
 template <typename Key, typename Value>
 bool Map< Key, Value>::resize()
 {
@@ -58,13 +68,7 @@ bool Map< Key, Value>::resize()
 	Value* tempValues = new Value[size * 2];
 	if (tempKeys && tempValues)
 	{
-		//for (int i = 0; i < size; i++)
-		//{
-		//	tempKeys[i] = keys[i];
-		//	tempValues[i] = values[i];
-		//}
-
-		memcpy(tempKeys, keys, size * sizeof(Key));
+		memcpy(tempKeys, keys, size * sizeof(Key)); //copy old array into new
 		memcpy(tempValues, values, size * sizeof(Value));
 		delete[] keys;
 		delete[] values;
@@ -74,8 +78,6 @@ bool Map< Key, Value>::resize()
 		return true;
 	}
 	return false;
-
-
 }
 
 

@@ -4,9 +4,12 @@
 
 #include "Linkedlist.h"
 
+/*==========Linkedlist==============
+constructor of the linked list
+*/
 Linkedlist::Linkedlist()
 {
-	size = 0;
+	size = 0; 
 	first = new Node();
 	last = new Node();
 	first->next = last;
@@ -15,6 +18,9 @@ Linkedlist::Linkedlist()
 	last->prev = first;
 }
 
+/*==========~Linkedlist==============
+disstructor of the linked list
+*/
 Linkedlist::~Linkedlist()
 {
 	while (first->next != NULL && first->next != last)
@@ -29,6 +35,10 @@ Linkedlist::~Linkedlist()
 		delete last;
 }
 
+/*==========Linkedlist==============
+disstructor of the linked list, init by array of char and int
+Input: char notes[], int beats[]
+*/
 Linkedlist::Linkedlist(char notes[], int beats[])
 {
 	size = 0;
@@ -38,16 +48,18 @@ Linkedlist::Linkedlist(char notes[], int beats[])
 	first->prev = NULL;
 	last->next = NULL;
 	last->prev = first;
-
 	int songLength = strlen(notes);
 
 	for (int i = 0; i < songLength; i++)
 	{
-
 		addNode(beats[i], notes[i]);
 	}
-	
 }
+
+/*==========addNode==============
+Add a new node into linkedlist
+Input: char notes, int beats
+*/
 void Linkedlist::addNode(int beat, char note)
 {
 	Node *newNode = new Node(beat, note);
@@ -59,6 +71,9 @@ void Linkedlist::addNode(int beat, char note)
 	size += 1;
 }
 
+/*==========deleteFirst==============
+Delete a first node of linkedlist
+*/
 void Linkedlist::deleteFirst()
 {
 	Node *current = first->next;
@@ -68,9 +83,14 @@ void Linkedlist::deleteFirst()
 		current->next->prev = first;
 		delete current;
 	}
-
 }
 
+/*==========linkedlistTraverse==============
+This function tones the notes and beats stored in linked list.
+It get pin number of buzzer and two functions, one is turn off the light and 
+one is frequency.
+Input: const int buzzerPin, int tempo, void (*lightDown)(),int (*frequency)(char)
+*/
 void Linkedlist::linkedlistTraverse(const int buzzerPin, int tempo, 
 									void (*lightDown)(),int (*frequency)(char))
 {
@@ -87,10 +107,7 @@ void Linkedlist::linkedlistTraverse(const int buzzerPin, int tempo,
 			}
 			else
 			{
-				//Serial.println("tone:");
-				//Serial.println(current->note);
 				tone(buzzerPin, frequency(current->note), duration);
-				
 				delay(duration);              // brief pause between notes
 				lightDown();
 			}

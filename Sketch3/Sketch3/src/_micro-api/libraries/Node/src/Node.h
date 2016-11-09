@@ -8,13 +8,14 @@
 #else
 	#include "WProgram.h"
 #endif
-
+//This Node class is only for Linkedlist, BST has it's own 
+//subclass BST:Node
 class Node {
 public:
-	char note;
-	int beat;
-	Node *prev;
-	Node *next;
+	char note; // the note stroe in Linkedlist Node
+	int beat; // the beat stroe in Linkedlist Node
+	Node *prev; // the pointer of prev node
+	Node *next; // the pointer of next node
 	Node();
 	Node(int inbeat, char innote);
 	~Node();
